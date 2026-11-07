@@ -1,11 +1,22 @@
-name: Build Pong for Windows
+
+name: Build Pong
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: Pong-Windows
+            file: dist/Pong.exe
+          - os: ubuntu-latest
+            artifact: Pong-Linux
+            file: dist/Pong
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Get source code
@@ -24,8 +35,8 @@ jobs:
         run: |
           python -m PyInstaller --clean --onefile --windowed --name Pong Pong_v1.7.1.py
 
-      - name: Upload EXE
+      - name: Upload executable
         uses: actions/upload-artifact@v4
         with:
-          name: Pong-Windows
-          path: dist/Pong.exe
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.file }}
