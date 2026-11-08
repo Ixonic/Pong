@@ -33,7 +33,7 @@ jobs:
 
       - name: Build Pong
         run: |
-          python -m PyInstaller --clean --onefile --windowed --name Pong Pong_v1.7.1.py
+          python -m PyInstaller --clean --onefile --windowed --name Pong Pong_v1.7.2.py
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
