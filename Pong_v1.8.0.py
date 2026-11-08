@@ -1,11 +1,23 @@
 import pygame
 import random
+import os
+import sys
 
 pygame.init()
 
+# sound path
+if getattr(sys, "frozen", False):
+    base_path = sys._MEIPASS
+else:
+    base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# sounds
+paddle_sound = pygame.mixer.Sound(os.path.join(base_path, "sounds", "ping_pong_8bit_beeep.ogg"))
+score_sound = pygame.mixer.Sound(os.path.join(base_path, "sounds", "ping_pong_8bit_peeeeeep.ogg"))
+wall_sound = pygame.mixer.Sound(os.path.join(base_path, "sounds", "ping_pong_8bit_plop.ogg"))
+
 # window
 screen = pygame.display.set_mode((1000, 700))
-pygame.display.set_caption("Pong v1.7.2")
+pygame.display.set_caption("Pong v1.8.0")
 
 running = True
 # points
@@ -64,8 +76,10 @@ while running:
 
             if ball_y >= 685:
                 ball_speed_y = -abs(ball_speed_y)
+                wall_sound.play()
             if ball_y <= 5:
                 ball_speed_y = abs(ball_speed_y)
+                wall_sound.play()
 
         # ball reset left
         if ball_x < -10:
@@ -77,6 +91,7 @@ while running:
             playerlost = "left"
             Rscore += 1
             ball_speed += ball_speed_increase
+            score_sound.play()
         
         # ball reset right
         if ball_x > 1010:
@@ -88,6 +103,7 @@ while running:
             playerlost = "right"
             Lscore += 1
             ball_speed += ball_speed_increase
+            score_sound.play()
 
         # ball coords definition
         ball_coords = ball_x, ball_y
@@ -171,9 +187,11 @@ while running:
         # hitboxes collision
         if paddleLEFT_hitbox.colliderect(ball_hitbox):
             ball_speed_x = abs(ball_speed_x)
+            paddle_sound.play()
 
         if paddleRIGHT_hitbox.colliderect(ball_hitbox):
             ball_speed_x = -abs(ball_speed_x)
+            paddle_sound.play()
 
         if (
             paddleLEFT_hitbox.colliderect(ball_hitbox)
