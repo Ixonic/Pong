@@ -38,7 +38,7 @@ jobs:
         run: |
           python -m PyInstaller --clean --onefile --windowed --name Pong --add-data "sounds${{ matrix.separator }}sounds" Pong_v1.8.0.py
 
-      - name: Upload Windows/Linux build
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact }}
