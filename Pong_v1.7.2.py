@@ -5,7 +5,7 @@ pygame.init()
 
 # window
 screen = pygame.display.set_mode((1000, 700))
-pygame.display.set_caption("Pong v1.7.1")
+pygame.display.set_caption("Pong v1.7.2")
 
 running = True
 # points
@@ -102,8 +102,9 @@ while running:
             paddleLEFT_x = paddleLEFT_x + paddle_flight_speed * dt
             paddleLEFT_y = paddleLEFT_y + paddle_flight_speed2 * dt
 
-        if paddleLEFT_x > 1500:
+        if paddleLEFT_x > 1050:
             paddle_flying = False
+            Lscore = 999
 
         # paddle flying y bounce
         if paddle_flying:
@@ -119,15 +120,15 @@ while running:
         # left paddle border
         if not paddle_flying:
         
-            if paddleLEFT_y >= 590:
-                paddleLEFT_y = 590
+            if paddleLEFT_y >= 615:
+                paddleLEFT_y = 615
 
             if paddleLEFT_y <= 10:
                 paddleLEFT_y = 10
         
         # right paddle border
-        if paddleRIGHT_y >= 590:
-            paddleRIGHT_y = 590
+        if paddleRIGHT_y >= 615:
+            paddleRIGHT_y = 615
     
         if paddleRIGHT_y <= 10:
             paddleRIGHT_y = 10
@@ -260,7 +261,7 @@ while running:
                     ball_speed_y = 0
                     playerlost = None
                     ball_was_hit = False
-                    ball_speed += 10
+                    ball_speed += 15
                     
     # ball start R
         if playerlost == "right":
@@ -271,7 +272,7 @@ while running:
                     ball_speed_y = 0
                     playerlost = None
                     ball_was_hit = False
-                    ball_speed += 10
+                    ball_speed += 15
 
     pygame.display.flip()
 
